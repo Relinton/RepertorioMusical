@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#004aad"
+    tools:context=".CadastroAgendaDeEventoActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:src="@drawable/agenda_de_eventos"/>
+
+        <EditText
+            android:id="@+id/cardDescricaoEvento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:hint="Digite a Descrição do Evento"
+            android:backgroundTint="@color/branco_fumaca"
+            android:background="@color/white"
+            android:inputType="text"
+            android:maxLength="70"
+            android:padding="16dp" />
+
+        <EditText
+            android:id="@+id/cadEnderecoEvento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-2dp"
+            android:background="@color/white"
+            android:ems="10"
+            android:hint="Digite o Endereço do Evento"
+            android:backgroundTint="@color/branco_fumaca"
+            android:layout_marginBottom="5dp"
+            android:inputType="text"
+            android:maxLength="100"
+            android:padding="16dp" />
+
+        <EditText
+            android:id="@+id/cadDataEvento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-2dp"
+            android:background="@color/white"
+            android:ems="10"
+            android:hint="Digite a Data Do Evento"
+            android:backgroundTint="@color/branco_fumaca"
+            android:layout_marginBottom="5dp"
+            android:inputType="text"
+            android:maxLength="20"
+            android:padding="16dp" />
+
+        <EditText
+            android:id="@+id/cadHoraEvento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-2dp"
+            android:background="@color/white"
+            android:ems="10"
+            android:hint="Digite a Hora do Evento"
+            android:backgroundTint="@color/branco_fumaca"
+            android:layout_marginBottom="5dp"
+            android:inputType="text"
+            android:maxLength="20"
+            android:padding="16dp" />
+
+        <EditText
+            android:id="@+id/cadMusicasASeremTocadas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-2dp"
+            android:background="@color/white"
+            android:hint="Digite as músicas a serem tocadas no evento"
+            android:backgroundTint="@color/branco_fumaca"
+            android:layout_marginBottom="5dp"
+            android:inputType="textMultiLine"
+            android:maxLength="500"
+            android:padding="36dp" />
+
+        <Button
+            android:id="@+id/btnSalvarAgendaEvento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="Salvar" />
+
+    </LinearLayout>
+</ScrollView>
