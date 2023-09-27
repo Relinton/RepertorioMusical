@@ -40,18 +40,6 @@
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:longClickable="true"/>
-                <TextView
-                    android:text="Horário: "
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:longClickable="true"/>
-                <TextView
-                    android:text="Músicas: "
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:longClickable="true"/>
             </LinearLayout>
 
             <LinearLayout
@@ -76,20 +64,6 @@
                 <TextView
                     android:id="@+id/txt_item_data"
                     android:text="data do evento"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:longClickable="true"/>
-                <TextView
-                    android:id="@+id/txt_item_horario"
-                    android:text="Hora do evento"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:longClickable="true"/>
-                <TextView
-                    android:id="@+id/txt_item_musicas"
-                    android:text="músicas a serem tocadas"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:clickable="true"

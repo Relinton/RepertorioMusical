@@ -4,30 +4,31 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.pinheirosdevelopers.repertoriomusical.conexao.RepertorioMusicalDAO;
-import com.pinheirosdevelopers.repertoriomusical.model.RepertorioMusical;
+import com.pinheirosdevelopers.repertoriomusical.conexao.EnsaioDAO;
+import com.pinheirosdevelopers.repertoriomusical.model.Ensaio;
+import com.santalu.maskara.widget.MaskEditText;
 
-public class CadastroRepertorioMusicalActivity extends AppCompatActivity {
+public class CadastroEnsaioActivity extends AppCompatActivity {
 
     //private InterstitialAd mInterstitialAd;
-    private EditText nomeDaMusica, nomeDoArtistaBanda, tomMusical;
+    private EditText descricaoDoEnsaio, enderecoDoEnsaio, musicasDoEnsaio;
+    private MaskEditText dataDoEnsaio, horaDoEnsaio;
     private Button btnSalvar;
-    private RepertorioMusicalDAO dao;
-    private RepertorioMusical repertorioMusical = null;
+    private EnsaioDAO dao;
+    private Ensaio ensaio = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cadastro_repertorio_musical);
+        setContentView(R.layout.activity_cadastro_ensaio);
 
-        /*MobileAds.initialize(CadastroProdutoActivity.this, new OnInitializationCompleteListener() {
+                /*MobileAds.initialize(CadastroProdutoActivity.this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(@NonNull InitializationStatus initializationStatus) {
             }
@@ -42,40 +43,52 @@ public class CadastroRepertorioMusicalActivity extends AppCompatActivity {
         }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        nomeDaMusica = findViewById(R.id.cardNomeMusica);
-        nomeDoArtistaBanda = findViewById(R.id.cadArtistaBanda);
-        tomMusical = findViewById(R.id.cadNotaPessoalTom);
-        btnSalvar = findViewById(R.id.btnSalvarRepertorioMusical);
-        dao = new RepertorioMusicalDAO(this);
+        descricaoDoEnsaio = findViewById(R.id.cardDescricaoEnsaio);
+        enderecoDoEnsaio = findViewById(R.id.cadEnderecoEnsaio);
+        dataDoEnsaio = findViewById(R.id.cadDataEnsaio);
+        horaDoEnsaio = findViewById(R.id.cadHoraEnsaio);
+        musicasDoEnsaio = findViewById(R.id.cadMusicasASeremTocadasEnsaio);
+        btnSalvar = findViewById(R.id.btnSalvarEnsaio);
+        dao = new EnsaioDAO(this);
 
         Intent it = getIntent();
-        if (it.hasExtra("repertorioMusical"))
+        if (it.hasExtra("ensaio"))
         {
-            repertorioMusical = (RepertorioMusical) it.getSerializableExtra("repertorioMusical");
-            nomeDaMusica.setText(repertorioMusical.getNomeDaMusica());
-            nomeDoArtistaBanda.setText(repertorioMusical.getNomeDoArtistaBanda());
-            tomMusical.setText(repertorioMusical.getTomMusical().toString());
+            ensaio = (Ensaio) it.getSerializableExtra("ensaio");
+            descricaoDoEnsaio.setText(ensaio.getDescricaoDoEnsaio());
+            enderecoDoEnsaio.setText(ensaio.getEnderecoDoEnsaio());
+            dataDoEnsaio.setText(ensaio.getDataDoEnsaio().toString());
+            horaDoEnsaio.setText(ensaio.getHoraDoEnsaio());
+            musicasDoEnsaio.setText(ensaio.getMusicasASeremTocadas().toString());
         }
 
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //btnSalvar.setEnabled(false);
-                if (nomeDaMusica.getText().toString().trim().equals("")) {
-                    Toast.makeText(CadastroRepertorioMusicalActivity.this, "Digite o nome da música", Toast.LENGTH_SHORT).show();
+                if (descricaoDoEnsaio.getText().toString().trim().equals("")) {
+                    Toast.makeText(CadastroEnsaioActivity.this, "Digite a descrição do ensaio", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (nomeDoArtistaBanda.getText().toString().trim().equals("")) {
-                    Toast.makeText(CadastroRepertorioMusicalActivity.this, "Digite o nome do artista/banda", Toast.LENGTH_SHORT).show();
+                if (enderecoDoEnsaio.getText().toString().trim().equals("")) {
+                    Toast.makeText(CadastroEnsaioActivity.this, "Digite o endereço do ensaio", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (tomMusical.getText().toString().trim().equals("")) {
-                    Toast.makeText(CadastroRepertorioMusicalActivity.this, "Digite o tom musical", Toast.LENGTH_SHORT).show();
+                if (dataDoEnsaio.getText().toString().trim().equals("")) {
+                    Toast.makeText(CadastroEnsaioActivity.this, "Digite a data do ensaio", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (horaDoEnsaio.getText().toString().trim().equals("")) {
+                    Toast.makeText(CadastroEnsaioActivity.this, "Digite o horário do ensaio", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (musicasDoEnsaio.getText().toString().trim().equals("")) {
+                    Toast.makeText(CadastroEnsaioActivity.this, "Digite as músicas do ensaio", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (repertorioMusical == null) {
-                    repertorioMusical = new RepertorioMusical();
+                if (ensaio == null) {
+                    ensaio = new Ensaio();
                     /*new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -95,12 +108,14 @@ public class CadastroRepertorioMusicalActivity extends AppCompatActivity {
                             }
                         }
                     }, 1000);*/
-                    repertorioMusical.setNomeDaMusica(nomeDaMusica.getText().toString());
-                    repertorioMusical.setNomeDoArtistaBanda(nomeDoArtistaBanda.getText().toString());
-                    repertorioMusical.setTomMusical(tomMusical.getText().toString());
-                    long id = dao.inserir(repertorioMusical);
-                    Toast.makeText(CadastroRepertorioMusicalActivity.this, "A música " +nomeDaMusica.getText().toString() + " foi inserida na lista", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(CadastroRepertorioMusicalActivity.this, ListaRepertorioMusicalActivity.class));
+                    ensaio.setDescricaoDoEnsaio(descricaoDoEnsaio.getText().toString());
+                    ensaio.setEnderecoDoEnsaio(enderecoDoEnsaio.getText().toString());
+                    ensaio.setDataDoEnsaio(dataDoEnsaio.getText().toString());
+                    ensaio.setHoraDoEnsaio(horaDoEnsaio.getText().toString());
+                    ensaio.setMusicasASeremTocadas(musicasDoEnsaio.getText().toString());
+                    long id = dao.inserir(ensaio);
+                    Toast.makeText(CadastroEnsaioActivity.this, "O ensaio " + descricaoDoEnsaio.getText().toString() + " foi inserido na lista", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(CadastroEnsaioActivity.this, ListaEnsaioActivity.class));
                 } else {
                     /*new Handler().postDelayed(new Runnable() {
                         @Override
@@ -121,12 +136,14 @@ public class CadastroRepertorioMusicalActivity extends AppCompatActivity {
                             }
                         }
                     }, 1000);*/
-                    repertorioMusical.setNomeDaMusica(nomeDaMusica.getText().toString());
-                    repertorioMusical.setNomeDoArtistaBanda(nomeDoArtistaBanda.getText().toString());
-                    repertorioMusical.setTomMusical(tomMusical.getText().toString());
-                    Toast.makeText(CadastroRepertorioMusicalActivity.this, "A música " +nomeDaMusica.getText().toString() + " foi atualizada com sucesso", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(CadastroRepertorioMusicalActivity.this, ListaRepertorioMusicalActivity.class));
-                    dao.atualizar(repertorioMusical);
+                    ensaio.setDescricaoDoEnsaio(descricaoDoEnsaio.getText().toString());
+                    ensaio.setEnderecoDoEnsaio(enderecoDoEnsaio.getText().toString());
+                    ensaio.setDataDoEnsaio(dataDoEnsaio.getText().toString());
+                    ensaio.setHoraDoEnsaio(horaDoEnsaio.getText().toString());
+                    ensaio.setMusicasASeremTocadas(musicasDoEnsaio.getText().toString());
+                    Toast.makeText(CadastroEnsaioActivity.this, "O ensaio " + descricaoDoEnsaio.getText().toString() + " foi atualizado com sucesso", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(CadastroEnsaioActivity.this, ListaEnsaioActivity.class));
+                    dao.atualizar(ensaio);
                 }
             }
         });
@@ -158,7 +175,7 @@ public class CadastroRepertorioMusicalActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(CadastroRepertorioMusicalActivity.this, ListaRepertorioMusicalActivity.class);
+        Intent intent = new Intent(CadastroEnsaioActivity.this, ListaEnsaioActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();

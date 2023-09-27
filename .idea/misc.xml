@@ -6,16 +6,23 @@
         <entry key="..\:/appRepertorioMusical/app/src/main/res/drawable/ic_search_black_24dp.xml" value="0.1925" />
         <entry key="..\:/appRepertorioMusical/app/src/main/res/drawable/rounded_button_background.xml" value="0.1925" />
         <entry key="..\:/appRepertorioMusical/app/src/main/res/layout/activity_cadastro_agenda_de_evento.xml" value="0.2359375" />
+        <entry key="..\:/appRepertorioMusical/app/src/main/res/layout/activity_cadastro_ensaio.xml" value="0.221875" />
         <entry key="..\:/appRepertorioMusical/app/src/main/res/layout/activity_cadastro_repertorio_musical.xml" value="0.2359375" />
+        <entry key="..\:/appRepertorioMusical/app/src/main/res/layout/activity_detalhes_agenda_de_evento.xml" value="0.2359375" />
+        <entry key="..\:/appRepertorioMusical/app/src/main/res/layout/activity_detalhes_ensaio.xml" value="0.2359375" />
         <entry key="..\:/appRepertorioMusical/app/src/main/res/layout/activity_lista_agenda_de_endereco.xml" value="0.2359375" />
         <entry key="..\:/appRepertorioMusical/app/src/main/res/layout/activity_lista_agenda_de_evento.xml" value="0.2359375" />
+        <entry key="..\:/appRepertorioMusical/app/src/main/res/layout/activity_lista_ensaio.xml" value="0.221875" />
+        <entry key="..\:/appRepertorioMusical/app/src/main/res/layout/activity_lista_notificacao.xml" value="0.2359375" />
         <entry key="..\:/appRepertorioMusical/app/src/main/res/layout/activity_lista_repertorio_musical.xml" value="0.2359375" />
         <entry key="..\:/appRepertorioMusical/app/src/main/res/layout/activity_main.xml" value="0.2359375" />
         <entry key="..\:/appRepertorioMusical/app/src/main/res/layout/activity_menu_interativo.xml" value="0.2359375" />
-        <entry key="..\:/appRepertorioMusical/app/src/main/res/layout/item_agenda_de_evento.xml" value="0.2359375" />
+        <entry key="..\:/appRepertorioMusical/app/src/main/res/layout/item_agenda_de_evento.xml" value="0.33" />
+        <entry key="..\:/appRepertorioMusical/app/src/main/res/layout/item_ensaio.xml" value="0.23489583333333333" />
         <entry key="..\:/appRepertorioMusical/app/src/main/res/layout/item_repertorio_musical.xml" value="0.25" />
         <entry key="..\:/appRepertorioMusical/app/src/main/res/layout/layout_lista_musicas.xml" value="0.23489583333333333" />
         <entry key="..\:/appRepertorioMusical/app/src/main/res/menu/menu_contexto.xml" value="0.176953125" />
+        <entry key="..\:/appRepertorioMusical/app/src/main/res/menu/menu_de_busca.xml" value="0.23489583333333333" />
         <entry key="..\:/appRepertorioMusical/app/src/main/res/menu/menu_principal.xml" value="0.10963541666666667" />
       </map>
     </option>

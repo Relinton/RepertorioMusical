@@ -17,24 +17,24 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.pinheirosdevelopers.repertoriomusical.adapter.RepertorioMusicalAdapter;
-import com.pinheirosdevelopers.repertoriomusical.conexao.RepertorioMusicalDAO;
-import com.pinheirosdevelopers.repertoriomusical.model.RepertorioMusical;
+import com.pinheirosdevelopers.repertoriomusical.adapter.EnsaioAdapter;
+import com.pinheirosdevelopers.repertoriomusical.conexao.EnsaioDAO;
+import com.pinheirosdevelopers.repertoriomusical.model.Ensaio;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListaRepertorioMusicalActivity extends AppCompatActivity {
+public class ListaEnsaioActivity extends AppCompatActivity {
 
     private ListView listView;
-    private RepertorioMusicalDAO dao;
-    private List<RepertorioMusical> repertoriosMusicais;
-    private List<RepertorioMusical>  repertoriosMusicaisFiltrados = new ArrayList<>();
+    private EnsaioDAO dao;
+    private List<Ensaio> ensaios;
+    private List<Ensaio> ensaiosFiltrados = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lista_repertorio_musical);
+        setContentView(R.layout.activity_lista_ensaio);
 
         try {
             this.getSupportActionBar().show();
@@ -44,21 +44,21 @@ public class ListaRepertorioMusicalActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         inicializador();
-        dao = new RepertorioMusicalDAO(this);
-        repertoriosMusicais = dao.obterTodos();
-        repertoriosMusicaisFiltrados.addAll(repertoriosMusicais);
-        TextView txtVazia = findViewById(R.id.txt_lista_vazia_repertorio_musical);
+        dao = new EnsaioDAO(this);
+        ensaios = dao.obterTodos();
+        ensaiosFiltrados.addAll(ensaios);
+        TextView txtVazia = findViewById(R.id.txt_lista_vazia_ensaio);
 
-        RepertorioMusicalAdapter adaptador = new RepertorioMusicalAdapter(this, repertoriosMusicaisFiltrados);
+        EnsaioAdapter adaptador = new EnsaioAdapter(this, ensaiosFiltrados);
         listView.setAdapter(adaptador);
 
-        ListView listaItensEstoque = findViewById(R.id.lista_repertorio_musical);
-        if (listaItensEstoque.getAdapter() == null || listaItensEstoque.getAdapter().getCount() == 0) {
+        ListView listaEnsaio = findViewById(R.id.lista_ensaio);
+        if (listaEnsaio.getAdapter() == null || listaEnsaio.getAdapter().getCount() == 0) {
             txtVazia.setVisibility(View.VISIBLE);
-            listaItensEstoque.setVisibility(View.GONE);
+            listaEnsaio.setVisibility(View.GONE);
         } else {
             txtVazia.setVisibility(View.GONE);
-            listaItensEstoque.setVisibility(View.VISIBLE);
+            listaEnsaio.setVisibility(View.VISIBLE);
         }
 
         if(adaptador.getCount() != 0)
@@ -67,55 +67,55 @@ public class ListaRepertorioMusicalActivity extends AppCompatActivity {
         }
         else
         {
-            AlertDialog.Builder builder = new AlertDialog.Builder(ListaRepertorioMusicalActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(ListaEnsaioActivity.this);
             builder.setTitle("Mensagem");
-            builder.setMessage("Sua lista de repertórios musicais está vazia. Deseja adicionar uma música agora?");
+            builder.setMessage("Sua lista de ensaios está vazia. Deseja adicionar um ensaio agora?");
             builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    startActivity(new Intent(ListaRepertorioMusicalActivity.this, CadastroRepertorioMusicalActivity.class));
+                    startActivity(new Intent(ListaEnsaioActivity.this, CadastroEnsaioActivity.class));
                 }
             });
             builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
-                    Toast.makeText(ListaRepertorioMusicalActivity.this, "Lista vazia, clique no + superior e monte sua lista", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ListaEnsaioActivity.this, "Lista vazia, clique no + superior e monte sua lista", Toast.LENGTH_LONG).show();
                 }
             });
             AlertDialog dialog = builder.create();
             dialog.show();
         }
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick (AdapterView <?> adapter, View view, int posicao, long id){
-                String nomeDaMusica = repertoriosMusicaisFiltrados.get(posicao).getNomeDaMusica();
-            }
-        });
-
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                RepertorioMusical repositorioMusical = repertoriosMusicaisFiltrados.get(i);
-                AlertDialog dialog = new AlertDialog.Builder(ListaRepertorioMusicalActivity.this)
+                Ensaio ensaio = ensaiosFiltrados.get(i);
+                AlertDialog dialog = new AlertDialog.Builder(ListaEnsaioActivity.this)
                         .setTitle("Escolha uma Opção")
-                        .setItems(new CharSequence[]{"Atualizar", "Excluir"}, new DialogInterface.OnClickListener() {
+                        .setItems(new CharSequence[]{"Detalhar Ensaio", "Atualizar", "Excluir"}, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int choice) {
+
                                 if (choice == 0) {
-                                    // Opção "Atualizar" selecionada, redirecione para a tela de edição
-                                    Intent intent = new Intent(ListaRepertorioMusicalActivity.this, CadastroRepertorioMusicalActivity.class);
-                                    intent.putExtra("repertorioMusical", repositorioMusical);
+                                    // Opção "Detalhar item" selecionada, inicie a atividade de detalhes
+                                    Intent intent = new Intent(ListaEnsaioActivity.this, DetalhesEnsaioActivity.class);
+                                    intent.putExtra("ensaio", ensaio);
                                     startActivity(intent);
-                                } else if (choice == 1) {
+                                }
+                                else if (choice == 1) {
+                                    // Opção "Atualizar" selecionada, redirecione para a tela de edição
+                                    Intent intent = new Intent(ListaEnsaioActivity.this, CadastroEnsaioActivity.class);
+                                    intent.putExtra("ensaio", ensaio);
+                                    startActivity(intent);
+                                } else if (choice == 2) {
                                     // Opção "Excluir" selecionada
-                                    RepertorioMusical repositorioMusicalExcluir = repertoriosMusicaisFiltrados.get(i);
-                                    repertoriosMusicaisFiltrados.remove(repositorioMusicalExcluir);
-                                    repertoriosMusicais.remove(repositorioMusicalExcluir);
-                                    dao.excluir(repositorioMusicalExcluir);
+                                    Ensaio ensaioExcluir = ensaiosFiltrados.get(i);
+                                    ensaiosFiltrados.remove(ensaioExcluir);
+                                    ensaios.remove(ensaioExcluir);
+                                    dao.excluir(ensaioExcluir);
                                     listView.invalidateViews();
-                                    Toast.makeText(getApplicationContext(), "Música excluída com sucesso", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Ensaio excluído com sucesso", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         })
@@ -140,8 +140,7 @@ public class ListaRepertorioMusicalActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                //System.out.println("Digitou " + s);
-                procurarPorEnderecoSearch(s);
+                procurarPorDescricaoDoEnsaioSearch(s);
                 return false;
             }
         });
@@ -156,14 +155,14 @@ public class ListaRepertorioMusicalActivity extends AppCompatActivity {
         i.inflate(R.menu.menu_contexto, menu);
     }
 
-    public void procurarPorEnderecoSearch(String nomeDaMusica)
+    public void procurarPorDescricaoDoEnsaioSearch(String descricaoDoEnsaio)
     {
-        repertoriosMusicaisFiltrados.clear();
-        for (RepertorioMusical e : repertoriosMusicais)
+        ensaiosFiltrados.clear();
+        for (Ensaio e : ensaios)
         {
-            if (e.getNomeDaMusica().toLowerCase().contains(nomeDaMusica.toLowerCase()))
+            if (e.getDescricaoDoEnsaio().toLowerCase().contains(descricaoDoEnsaio.toLowerCase()))
             {
-                repertoriosMusicaisFiltrados.add(e);
+                ensaiosFiltrados.add(e);
             }
         }
         listView.invalidateViews();
@@ -171,26 +170,26 @@ public class ListaRepertorioMusicalActivity extends AppCompatActivity {
 
     public void Cadastrar(MenuItem item)
     {
-        startActivity(new Intent(ListaRepertorioMusicalActivity.this, CadastroRepertorioMusicalActivity.class));
+        startActivity(new Intent(ListaEnsaioActivity.this, CadastroEnsaioActivity.class));
     }
 
     private void inicializador() {
-        listView = findViewById(R.id.lista_repertorio_musical);
+        listView = findViewById(R.id.lista_ensaio);
     }
 
     @Override
     public void onResume()
     {
         super.onResume();
-        repertoriosMusicais = dao.obterTodos();
-        repertoriosMusicaisFiltrados.clear();
-        repertoriosMusicaisFiltrados.addAll(repertoriosMusicais);
+        ensaios = dao.obterTodos();
+        ensaiosFiltrados.clear();
+        ensaiosFiltrados.addAll(ensaios);
         listView.invalidateViews();
     }
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(ListaRepertorioMusicalActivity.this, MenuInterativoActivity.class);
+        Intent intent = new Intent(ListaEnsaioActivity.this, MenuInterativoActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();

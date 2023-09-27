@@ -46,14 +46,10 @@ public class AgendaDeEventoAdapter extends BaseAdapter {
         TextView descricaoDoEvento = v.findViewById(R.id.txt_item_descricao);
         TextView enderecoDoEvento = v.findViewById(R.id.txt_item_endereco);
         TextView dataDoEvento = v.findViewById(R.id.txt_item_data);
-        TextView horarioDoEvento = v.findViewById(R.id.txt_item_horario);
-        TextView musicasASeremTocadas = v.findViewById(R.id.txt_item_musicas);
         AgendaDeEvento agendaDeEvento = agendaDeEventos.get(i);
         descricaoDoEvento.setText(agendaDeEvento.getDescricaoDoEvento());
         enderecoDoEvento.setText(agendaDeEvento.getEnderecoDoEvento());
-        dataDoEvento.setText(agendaDeEvento.getDataDoEvento());
-        horarioDoEvento.setText(agendaDeEvento.getHoraDoEvento());
-        musicasASeremTocadas.setText(agendaDeEvento.getMusicasASeremTocadas());
+        dataDoEvento.setText(agendaDeEvento.getDataDoEvento() + " " + agendaDeEvento.getHoraDoEvento());
 
         return v;
     }

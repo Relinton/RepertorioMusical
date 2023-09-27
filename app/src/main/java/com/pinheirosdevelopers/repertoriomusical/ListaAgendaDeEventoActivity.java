@@ -14,12 +14,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pinheirosdevelopers.repertoriomusical.adapter.AgendaDeEventoAdapter;
 import com.pinheirosdevelopers.repertoriomusical.conexao.AgendaDeEventoDAO;
 import com.pinheirosdevelopers.repertoriomusical.model.AgendaDeEvento;
-import com.pinheirosdevelopers.repertoriomusical.model.RepertorioMusical;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,13 +36,30 @@ public class ListaAgendaDeEventoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_agenda_de_evento);
 
+        try {
+            this.getSupportActionBar().show();
+        }
+        catch (NullPointerException e) {
+        }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         inicializador();
         dao = new AgendaDeEventoDAO(this);
         agendasDeEventos = dao.obterTodos();
         agendaDeEventosFiltrados.addAll(agendasDeEventos);
+        TextView txtVazia = findViewById(R.id.txt_lista_vazia_agenda_de_evento);
 
         AgendaDeEventoAdapter adaptador = new AgendaDeEventoAdapter(this, agendaDeEventosFiltrados);
         listView.setAdapter(adaptador);
+
+        ListView listaAgendaEventos = findViewById(R.id.lista_agenda_de_evento);
+        if (listaAgendaEventos.getAdapter() == null || listaAgendaEventos.getAdapter().getCount() == 0) {
+            txtVazia.setVisibility(View.VISIBLE);
+            listaAgendaEventos.setVisibility(View.GONE);
+        } else {
+            txtVazia.setVisibility(View.GONE);
+            listaAgendaEventos.setVisibility(View.VISIBLE);
+        }
 
         if(adaptador.getCount() != 0)
         {
@@ -70,31 +87,28 @@ public class ListaAgendaDeEventoActivity extends AppCompatActivity {
             dialog.show();
         }
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick (AdapterView <?> adapter, View view, int posicao, long id){
-                AgendaDeEvento agendaDeEvento = agendaDeEventosFiltrados.get(posicao);
-                String musicasASeremTocadas = agendaDeEvento.getMusicasASeremTocadas();
-                mostrarListaDeMusicas(musicasASeremTocadas);
-                Toast.makeText(getApplicationContext(),"clicou", Toast.LENGTH_LONG).show();
-            }
-        });
-
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 AgendaDeEvento agendaDeEvento = agendaDeEventosFiltrados.get(i);
                 AlertDialog dialog = new AlertDialog.Builder(ListaAgendaDeEventoActivity.this)
                         .setTitle("Escolha uma Opção")
-                        .setItems(new CharSequence[]{"Atualizar", "Excluir"}, new DialogInterface.OnClickListener() {
+                        .setItems(new CharSequence[]{"Detalhar Evento", "Atualizar", "Excluir"}, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int choice) {
+
                                 if (choice == 0) {
+                                    // Opção "Detalhar item" selecionada, inicie a atividade de detalhes
+                                    Intent intent = new Intent(ListaAgendaDeEventoActivity.this, DetalhesAgendaDeEventoActivity.class);
+                                    intent.putExtra("agendaDeEvento", agendaDeEvento);
+                                    startActivity(intent);
+                                }
+                                else if (choice == 1) {
                                     // Opção "Atualizar" selecionada, redirecione para a tela de edição
                                     Intent intent = new Intent(ListaAgendaDeEventoActivity.this, CadastroAgendaDeEventoActivity.class);
                                     intent.putExtra("agendaDeEvento", agendaDeEvento);
                                     startActivity(intent);
-                                } else if (choice == 1) {
+                                } else if (choice == 2) {
                                     // Opção "Excluir" selecionada
                                     AgendaDeEvento agendaDeEventoExcluir = agendaDeEventosFiltrados.get(i);
                                     agendaDeEventosFiltrados.remove(agendaDeEventoExcluir);
@@ -178,8 +192,6 @@ public class ListaAgendaDeEventoActivity extends AppCompatActivity {
         builder.create().show();
     }
 
-
-
     @Override
     public void onResume()
     {
@@ -188,5 +200,24 @@ public class ListaAgendaDeEventoActivity extends AppCompatActivity {
         agendaDeEventosFiltrados.clear();
         agendaDeEventosFiltrados.addAll(agendasDeEventos);
         listView.invalidateViews();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(ListaAgendaDeEventoActivity.this, MenuInterativoActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

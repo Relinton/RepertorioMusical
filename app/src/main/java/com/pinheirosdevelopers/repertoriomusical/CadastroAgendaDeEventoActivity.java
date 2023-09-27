@@ -14,11 +14,13 @@ import com.pinheirosdevelopers.repertoriomusical.conexao.AgendaDeEventoDAO;
 import com.pinheirosdevelopers.repertoriomusical.conexao.RepertorioMusicalDAO;
 import com.pinheirosdevelopers.repertoriomusical.model.AgendaDeEvento;
 import com.pinheirosdevelopers.repertoriomusical.model.RepertorioMusical;
+import com.santalu.maskara.widget.MaskEditText;
 
 public class CadastroAgendaDeEventoActivity extends AppCompatActivity {
 
     //private InterstitialAd mInterstitialAd;
-    private EditText descricaoDoEvento, enderecoDoEvento, dataDoEvento, horaDoEvento, musicasDoEvento;
+    private EditText descricaoDoEvento, enderecoDoEvento, musicasDoEvento;
+    private MaskEditText dataDoEvento, horaDoEvento;
     private Button btnSalvar;
     private AgendaDeEventoDAO dao;
     private AgendaDeEvento agendaDeEvento = null;
@@ -175,7 +177,7 @@ public class CadastroAgendaDeEventoActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(CadastroAgendaDeEventoActivity.this, MenuInterativoActivity.class);
+        Intent intent = new Intent(CadastroAgendaDeEventoActivity.this, ListaAgendaDeEventoActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();

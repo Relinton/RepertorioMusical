@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ListaAgendaDeEventoActivity">
+    tools:context=".ListaNotificacaoActivity">
 
     <ListView
-        android:id="@+id/lista_agenda_de_evento"
+        android:id="@+id/lista_notificacao"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -24,15 +24,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txt_lista_vazia_agenda_de_evento"
+        android:id="@+id/txt_lista_vazia_notificacao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="A lista está vazia"
         android:textSize="18sp"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/lista_agenda_de_evento"
-        app:layout_constraintEnd_toEndOf="@id/lista_agenda_de_evento"
-        app:layout_constraintStart_toStartOf="@id/lista_agenda_de_evento"
-        app:layout_constraintTop_toTopOf="@id/lista_agenda_de_evento" />
+        app:layout_constraintBottom_toBottomOf="@id/lista_notificacao"
+        app:layout_constraintEnd_toEndOf="@id/lista_notificacao"
+        app:layout_constraintStart_toStartOf="@id/lista_notificacao"
+        app:layout_constraintTop_toTopOf="@id/lista_notificacao" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

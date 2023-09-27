@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:background="#004aad"
-    tools:context=".CadastroAgendaDeEventoActivity">
+    tools:context=".CadastroEnsaioActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,16 +19,16 @@
             android:layout_width="100dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
-            android:src="@drawable/agenda_de_eventos"/>
+            android:src="@drawable/ensaios"/>
 
         <EditText
-            android:id="@+id/cardDescricaoEvento"
+            android:id="@+id/cardDescricaoEnsaio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
-            android:hint="Digite a Descrição do Evento"
+            android:hint="Digite a Descrição do Ensaio"
             android:backgroundTint="@color/branco_fumaca"
             android:background="@color/white"
             android:inputType="text"
@@ -36,13 +36,13 @@
             android:padding="16dp" />
 
         <EditText
-            android:id="@+id/cadEnderecoEvento"
+            android:id="@+id/cadEnderecoEnsaio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="-2dp"
             android:background="@color/white"
             android:ems="10"
-            android:hint="Digite o Endereço do Evento"
+            android:hint="Digite o Endereço do Ensaio"
             android:backgroundTint="@color/branco_fumaca"
             android:layout_marginBottom="5dp"
             android:inputType="text"
@@ -50,21 +50,21 @@
             android:padding="16dp" />
 
         <com.santalu.maskara.widget.MaskEditText
-            android:id="@+id/cadDataEvento"
+            android:id="@+id/cadDataEnsaio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="-2dp"
             android:inputType="number"
             app:mask="__/__/____"
             app:maskCharacter="_"
-            android:hint="Digite a Data do Evento"
+            android:hint="Digite a Data do Ensaio"
             android:background="@color/branco_fumaca"
             android:layout_marginBottom="5dp"
             android:maxLength="10"
             android:padding="16dp" />
 
         <com.santalu.maskara.widget.MaskEditText
-            android:id="@+id/cadHoraEvento"
+            android:id="@+id/cadHoraEnsaio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
@@ -73,19 +73,19 @@
             android:layout_marginTop="-2dp"
             android:background="@color/white"
             android:ems="10"
-            android:hint="Digite o Horário do Evento"
+            android:hint="Digite o Horário do Ensaio"
             android:backgroundTint="@color/branco_fumaca"
             android:layout_marginBottom="5dp"
             android:maxLength="5"
             android:padding="16dp" />
 
         <EditText
-            android:id="@+id/cadMusicasASeremTocadas"
+            android:id="@+id/cadMusicasASeremTocadasEnsaio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="-2dp"
             android:background="@color/white"
-            android:hint="Digite as músicas a serem tocadas no evento"
+            android:hint="Digite as músicas a serem ensaiadas"
             android:backgroundTint="@color/branco_fumaca"
             android:layout_marginBottom="5dp"
             android:inputType="textMultiLine"
@@ -93,11 +93,12 @@
             android:padding="36dp" />
 
         <Button
-            android:id="@+id/btnSalvarAgendaEvento"
+            android:id="@+id/btnSalvarEnsaio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:text="Salvar" />
 
     </LinearLayout>
+
 </ScrollView>
